@@ -1,8 +1,0 @@
-mkdir h00k
-git init
-git add .
-git commit -m 'First commit'
-git remote add origin https://github.com/benpturner/h00k.git
-git remote -v
-git pull
-git push origin master

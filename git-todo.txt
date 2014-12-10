@@ -1,0 +1,18 @@
+Manually Create Git
+=====================
+mkdir h00k
+git init
+git add .
+git commit -m 'Comment for commit'
+git remote add origin https://github.com/benpturner/h00k.git
+git remote -v
+git pull
+git push origin master
+
+
+Git Clone and Push
+===================================================================
+git clone https://github.com/benpturner/h00k.git
+git add .
+git commit -m 'Comment for commit'
+git push origin master

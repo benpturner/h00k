@@ -1,0 +1,21 @@
+Manually
+=========
+mkdir h00k
+git init
+git add .
+git commit -m 'First commit'
+git remote add origin https://github.com/benpturner/h00k.git
+git remote -v
+git pull
+git push origin master
+
+
+Git Clone and Push
+===================================================================
+create git on github, e.g. https://github.com/benpturner/h00k.git
+
+then git clone https://github.com/benpturner/h00k.git
+cd h00k
+git add .
+git commit -m 'message'
+git push origin master

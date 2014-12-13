@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Vulnerabilities" msprop:Generator_TableClassName="VulnerabilitiesDataTable" msprop:Generator_TableVarName="tableVulnerabilities" msprop:Generator_RowChangedName="VulnerabilitiesRowChanged" msprop:Generator_TablePropName="Vulnerabilities" msprop:Generator_RowDeletingName="VulnerabilitiesRowDeleting" msprop:Generator_RowChangingName="VulnerabilitiesRowChanging" msprop:Generator_RowEvHandlerName="VulnerabilitiesRowChangeEventHandler" msprop:Generator_RowDeletedName="VulnerabilitiesRowDeleted" msprop:Generator_RowClassName="VulnerabilitiesRow" msprop:Generator_UserTableName="Vulnerabilities" msprop:Generator_RowEvArgName="VulnerabilitiesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VulnName" msprop:Generator_ColumnVarNameInTable="columnVulnName" msprop:Generator_ColumnPropNameInRow="VulnName" msprop:Generator_ColumnPropNameInTable="VulnNameColumn" msprop:Generator_UserColumnName="VulnName" type="xs:string" minOccurs="0" />
+              <xs:element name="Severity" msprop:Generator_ColumnVarNameInTable="columnSeverity" msprop:Generator_ColumnPropNameInRow="Severity" msprop:Generator_ColumnPropNameInTable="SeverityColumn" msprop:Generator_UserColumnName="Severity" type="xs:string" minOccurs="0" />
+              <xs:element name="Host" msprop:Generator_ColumnVarNameInTable="columnHost" msprop:Generator_ColumnPropNameInRow="Host" msprop:Generator_ColumnPropNameInTable="HostColumn" msprop:Generator_UserColumnName="Host" type="xs:string" minOccurs="0" />
+              <xs:element name="Port" msprop:Generator_ColumnVarNameInTable="columnPort" msprop:Generator_ColumnPropNameInRow="Port" msprop:Generator_ColumnPropNameInTable="PortColumn" msprop:Generator_UserColumnName="Port" type="xs:string" minOccurs="0" />
+              <xs:element name="Evidence" msprop:Generator_ColumnVarNameInTable="columnEvidence" msprop:Generator_ColumnPropNameInRow="Evidence" msprop:Generator_ColumnPropNameInTable="EvidenceColumn" msprop:Generator_UserColumnName="Evidence" type="xs:string" minOccurs="0" />
+              <xs:element name="Hostport" msprop:Generator_ColumnVarNameInTable="columnHostport" msprop:Generator_ColumnPropNameInRow="Hostport" msprop:Generator_ColumnPropNameInTable="HostportColumn" msprop:Generator_UserColumnName="Hostport" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Permissions" msprop:Generator_TableClassName="PermissionsDataTable" msprop:Generator_TableVarName="tablePermissions" msprop:Generator_TablePropName="Permissions" msprop:Generator_RowDeletingName="PermissionsRowDeleting" msprop:Generator_RowChangingName="PermissionsRowChanging" msprop:Generator_RowEvHandlerName="PermissionsRowChangeEventHandler" msprop:Generator_RowDeletedName="PermissionsRowDeleted" msprop:Generator_UserTableName="Permissions" msprop:Generator_RowChangedName="PermissionsRowChanged" msprop:Generator_RowEvArgName="PermissionsRowChangeEvent" msprop:Generator_RowClassName="PermissionsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Identity_x0020_Reference" msprop:Generator_ColumnVarNameInTable="columnIdentity_Reference" msprop:Generator_ColumnPropNameInRow="Identity_Reference" msprop:Generator_ColumnPropNameInTable="Identity_ReferenceColumn" msprop:Generator_UserColumnName="Identity Reference" type="xs:string" minOccurs="0" />
+              <xs:element name="Access_x0020_Control_x0020_Type" msprop:Generator_ColumnVarNameInTable="columnAccess_Control_Type" msprop:Generator_ColumnPropNameInRow="Access_Control_Type" msprop:Generator_ColumnPropNameInTable="Access_Control_TypeColumn" msprop:Generator_UserColumnName="Access Control Type" type="xs:string" minOccurs="0" />
+              <xs:element name="File_x0020_System_x0020_Rights" msprop:Generator_ColumnVarNameInTable="columnFile_System_Rights" msprop:Generator_ColumnPropNameInRow="File_System_Rights" msprop:Generator_ColumnPropNameInTable="File_System_RightsColumn" msprop:Generator_UserColumnName="File System Rights" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Loot" msprop:Generator_TableClassName="LootDataTable" msprop:Generator_TableVarName="tableLoot" msprop:Generator_TablePropName="Loot" msprop:Generator_RowDeletingName="LootRowDeleting" msprop:Generator_RowChangingName="LootRowChanging" msprop:Generator_RowEvHandlerName="LootRowChangeEventHandler" msprop:Generator_RowDeletedName="LootRowDeleted" msprop:Generator_UserTableName="Loot" msprop:Generator_RowChangedName="LootRowChanged" msprop:Generator_RowEvArgName="LootRowChangeEvent" msprop:Generator_RowClassName="LootRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Hashes" msprop:Generator_ColumnVarNameInTable="columnHashes" msprop:Generator_ColumnPropNameInRow="Hashes" msprop:Generator_ColumnPropNameInTable="HashesColumn" msprop:Generator_UserColumnName="Hashes" type="xs:string" minOccurs="0" />
+              <xs:element name="Host" msprop:Generator_ColumnVarNameInTable="columnHost" msprop:Generator_ColumnPropNameInRow="Host" msprop:Generator_ColumnPropNameInTable="HostColumn" msprop:Generator_UserColumnName="Host" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SystemInfo" msprop:Generator_TableClassName="SystemInfoDataTable" msprop:Generator_TableVarName="tableSystemInfo" msprop:Generator_TablePropName="SystemInfo" msprop:Generator_RowDeletingName="SystemInfoRowDeleting" msprop:Generator_RowChangingName="SystemInfoRowChanging" msprop:Generator_RowEvHandlerName="SystemInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="SystemInfoRowDeleted" msprop:Generator_UserTableName="SystemInfo" msprop:Generator_RowChangedName="SystemInfoRowChanged" msprop:Generator_RowEvArgName="SystemInfoRowChangeEvent" msprop:Generator_RowClassName="SystemInfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Host" msprop:Generator_ColumnVarNameInTable="columnHost" msprop:Generator_ColumnPropNameInRow="Host" msprop:Generator_ColumnPropNameInTable="HostColumn" msprop:Generator_UserColumnName="Host" type="xs:string" minOccurs="0" />
+              <xs:element name="Version" msprop:Generator_ColumnVarNameInTable="columnVersion" msprop:Generator_ColumnPropNameInRow="Version" msprop:Generator_ColumnPropNameInTable="VersionColumn" msprop:Generator_UserColumnName="Version" type="xs:string" minOccurs="0" />
+              <xs:element name="ServicePack" msprop:Generator_ColumnVarNameInTable="columnServicePack" msprop:Generator_ColumnPropNameInRow="ServicePack" msprop:Generator_ColumnPropNameInTable="ServicePackColumn" msprop:Generator_UserColumnName="ServicePack" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Patches" msprop:Generator_TableClassName="PatchesDataTable" msprop:Generator_TableVarName="tablePatches" msprop:Generator_TablePropName="Patches" msprop:Generator_RowDeletingName="PatchesRowDeleting" msprop:Generator_RowChangingName="PatchesRowChanging" msprop:Generator_RowEvHandlerName="PatchesRowChangeEventHandler" msprop:Generator_RowDeletedName="PatchesRowDeleted" msprop:Generator_UserTableName="Patches" msprop:Generator_RowChangedName="PatchesRowChanged" msprop:Generator_RowEvArgName="PatchesRowChangeEvent" msprop:Generator_RowClassName="PatchesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Host" msprop:Generator_ColumnVarNameInTable="columnHost" msprop:Generator_ColumnPropNameInRow="Host" msprop:Generator_ColumnPropNameInTable="HostColumn" msprop:Generator_UserColumnName="Host" type="xs:string" minOccurs="0" />
+              <xs:element name="KBNumber" msprop:Generator_ColumnVarNameInTable="columnKBNumber" msprop:Generator_ColumnPropNameInRow="KBNumber" msprop:Generator_ColumnPropNameInTable="KBNumberColumn" msprop:Generator_UserColumnName="KBNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="MSNumber" msprop:Generator_ColumnVarNameInTable="columnMSNumber" msprop:Generator_ColumnPropNameInRow="MSNumber" msprop:Generator_ColumnPropNameInTable="MSNumberColumn" msprop:Generator_UserColumnName="MSNumber" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

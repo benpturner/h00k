@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DocX</id>
+    <version>1.0.0.13</version>
+    <authors>Cathal Coffey</authors>
+    <owners>Cathal Coffey</owners>
+    <licenseUrl>http://docx.codeplex.com/license</licenseUrl>
+    <projectUrl>http://docx.codeplex.com/</projectUrl>
+    <iconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=docx&amp;DownloadId=83756&amp;Build=17950</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DocX is a .NET library that allows developers to manipulate Word 2007 files, in an easy and intuitive manor.</description>
+    <tags>Word</tags>
+  </metadata>
+</package>

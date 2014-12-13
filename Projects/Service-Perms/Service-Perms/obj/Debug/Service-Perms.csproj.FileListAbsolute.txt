@@ -1,0 +1,6 @@
+c:\users\administrator\documents\visual studio 2012\Projects\Service-Perms\Service-Perms\bin\Debug\Service-Perms.exe.config
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\Service-Perms\Service-Perms\bin\Debug\Service-Perms.exe
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\Service-Perms\Service-Perms\bin\Debug\Service-Perms.pdb
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\Service-Perms\Service-Perms\obj\Debug\Service-Perms.exe
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\Service-Perms\Service-Perms\obj\Debug\Service-Perms.pdb
+C:\Users\Administrator\documents\visual studio 2012\Projects\Service-Perms\Service-Perms\obj\Debug\Service-Perms.csprojResolveAssemblyReference.cache

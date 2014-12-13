@@ -1,0 +1,8 @@
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\bin\Debug\NmapParser.exe.config
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\bin\Debug\NmapParser.exe
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\bin\Debug\NmapParser.pdb
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\obj\Debug\NmapParser.Form1.resources
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\obj\Debug\NmapParser.Properties.Resources.resources
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\obj\Debug\NmapParser.csproj.GenerateResource.Cache
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\obj\Debug\NmapParser.exe
+c:\users\administrator\documents\visual studio 2012\Projects\NmapParser\NmapParser\obj\Debug\NmapParser.pdb

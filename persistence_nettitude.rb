@@ -24,7 +24,7 @@ class Metasploit3 < Msf::Exploit::Local
     super( update_info( info,
       'Name'          => 'Windows Manage Persistent Payload Installer',
       'Description'   => %q{
-        This Module will create a boot persistent reverse Meterpreter session by
+        This Module will create a boot persistent reverse Meterpreter sessions by
         installing on the target host the payload as a script that will be executed
         at user logon or system startup depending on privilege and selected startup
         method.

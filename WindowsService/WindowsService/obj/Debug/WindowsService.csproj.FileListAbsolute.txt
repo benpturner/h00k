@@ -1,0 +1,4 @@
+C:\Users\Administrator\Documents\WindowsService\WindowsService\bin\Debug\WindowsService.exe
+C:\Users\Administrator\Documents\WindowsService\WindowsService\bin\Debug\WindowsService.pdb
+C:\Users\Administrator\Documents\WindowsService\WindowsService\obj\Debug\WindowsService.exe
+C:\Users\Administrator\Documents\WindowsService\WindowsService\obj\Debug\WindowsService.pdb

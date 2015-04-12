@@ -5,7 +5,9 @@
 ##
 
 
-# Author: Ben Turner
+# Author: Ben Turner (made into post script and incorporated powercat) 
+# Nicholas Nam (nick[at]executionflow.org)
+# RageLtMan
 #-------------------------------------------------------------------------------
 ################## Variable Declarations ##################
 

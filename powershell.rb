@@ -5,7 +5,9 @@
 ##
 
 
-# Author: Ben Turner (made into post script and incorporated powercat) 
+# Authors: 
+# Ben Turner
+# Dave Hardy
 # Nicholas Nam (nick[at]executionflow.org)
 # RageLtMan
 # 

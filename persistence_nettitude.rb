@@ -25,7 +25,6 @@ cusexe = ""
 @exec_opts = Rex::Parser::Arguments.new(
   "-h"  => [ true,  "This help menu"],
   "-x"  => [ true,   "The path to the Custom EXE or BAT file to use for persistence, e.g. -x /root/msf.exe"],
-  "-c"  => [ true,   "The extension of the Custom EXE, e.g. -c bat"],
   "-d"  => [ true,   "The delay on the scheduled task in minutes"],
   "-n"  => [ true,   "The name of the task and registry key on the host"],
   "-u"  => [ true,   "The interval in seconds between each connection attempt"]

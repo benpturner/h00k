@@ -5,12 +5,13 @@
 ##
 
 
-# Authors: 
-# Ben Turner
+# Authors/Contributors: 
+# Ben Turner (https://github.com/benpturner/h00k)
 # Dave Hardy
 # Nicholas Nam (nick[at]executionflow.org)
 # RageLtMan
-# 
+# PowerCat (https://github.com/besimorhino/powercat)
+
 #-------------------------------------------------------------------------------
 ################## Variable Declarations ##################
 

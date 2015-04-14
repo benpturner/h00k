@@ -49,7 +49,7 @@ meter_type = client.platform
   def write_to_target(payloadsource)
     tempdir = @client.sys.config.getenv('TEMP')
     ext = payloadsource[payloadsource.rindex(".") .. -1]
-    tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + "." + ext
+    tempfile = tempdir + "\\" + Rex::Text.rand_text_alpha((rand(8)+6)) + ext
     begin
       session.fs.file.upload_file(tempfile, payloadsource)
       print_good("Persistent Script written to #{tempfile}")

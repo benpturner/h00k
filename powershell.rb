@@ -311,7 +311,7 @@ testscript="JABzAHQAcgBlAGEAbQAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAASQBPAC4ATQBl
 end
 
 
-print_status('Executing the script: ' + script)
+#print_status('Executing the script: ' + script)
 print_status("Starting PowerShell on host: " + computer_name)
 
 # Execute the powershell script

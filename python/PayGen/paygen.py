@@ -168,7 +168,7 @@ elif payloadformat == 'java-applet':
     outputname = 'java.html'
 else:
 	print "Unknown Output Format"
-	outputname = 'Payload.bin
+	outputname = 'Payload.bin'
 	exit()
 
 

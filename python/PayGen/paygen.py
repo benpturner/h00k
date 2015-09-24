@@ -99,7 +99,7 @@ lport = raw_input("\033[0;31mPlease enter LPORT TCP Port [" + lport + "]: \033[0
 #outputloc = raw_input("\033[0;31mPlease enter Output location of Payload [" + outputloc + "]: \033[0m") or outputloc
 print""
 print "java-applet, macro"
-print "asp, aspx, aspx-exe, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-net, psh-reflection, vba, vba-exe, vbs, war"
+print "asp, aspx, aspx-exe, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, hta-psh, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-net, psh-reflection, psh-cmd, vba, vba-exe, vba-psh, vbs, war"
 payloadformat = raw_input("\033[0;31mPlease enter value for the Payload format [" + payloadformat + "]: \033[0m") or payloadformat
 print ""
 
@@ -168,6 +168,7 @@ elif payloadformat == 'java-applet':
     outputname = 'java.html'
 else:
 	print "Unknown Output Format"
+	outputname = 'Payload.bin
 	exit()
 
 

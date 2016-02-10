@@ -2,8 +2,8 @@
 
 import sys
 import socket
-import json, urllib
-from urllib import urlopen
+import json, urllib2
+from urllib2 import urlopen
 
 print "\n\033[0;32m==================================================================="
 print "\033[0;32mLync Discoverer and Brute-forcer helper 2016 - Written by @benpturner" 
@@ -31,7 +31,14 @@ except:
 	print "\033[0;31m[-] Could not resolve DNS: "+"lyncdiscover."+domainsuffix+"\033[0m"
 
 if lyncdiscoverinternal:
-	response = urlopen("http://lyncdiscoverinternal."+domainsuffix)
+	try:
+		response = urlopen("http://lyncdiscoverinternal."+domainsuffix, timeout=2)
+	except:
+		print "Trying HTTPS"
+	try:
+		response = urlopen("https://lyncdiscoverinternal."+domainsuffix, timeout=2)
+	except:
+		print "Failed to find NTLM webpage for Lync"
 	string = response.read().decode('utf-8')
 	json_obj = json.loads(string)
 	userlink = json_obj['_links']['user']['href']
@@ -40,7 +47,14 @@ if lyncdiscoverinternal:
 	print "\n[+] Now use: \n\033[0;32mntlm-botherer.py -U users.txt -p Password1 -d <DOMAIN> \033[0m"
 
 if lyncdiscover:
-	response = urlopen("http://lyncdiscover."+domainsuffix)
+	try:
+		response = urlopen("http://lyncdiscover."+domainsuffix, timeout=2)
+	except:
+		pass
+	try:
+		response = urlopen("https://lyncdiscover."+domainsuffix, timeout=2)
+	except:
+		print "Failed to find NTLM webpage for Lync"
 	string = response.read().decode('utf-8')
 	json_obj = json.loads(string)
 	userlink = json_obj['_links']['user']['href']

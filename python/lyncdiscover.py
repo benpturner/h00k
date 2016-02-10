@@ -5,9 +5,9 @@ import socket
 import json, urllib2
 from urllib2 import urlopen
 
-print "\n\033[0;32m==================================================================="
+print "\n\033[0;32m======================================================================"
 print "\033[0;32mLync Discoverer and Brute-forcer helper 2016 - Written by @benpturner" 
-print "\033[0;32m==================================================================="
+print "\033[0;32m======================================================================"
 
 
 domain = raw_input("\033[0;31mProvide an example target email address [test@example.com]: \033[0m")

@@ -4,10 +4,12 @@ import sys
 import socket
 import json, urllib2
 from urllib2 import urlopen
+import dns.resolver
 
 print "\n\033[0;32m======================================================================"
 print "\033[0;32mLync Discoverer and Brute-forcer helper 2016 - Written by @benpturner" 
 print "\033[0;32m======================================================================"
+
 
 def decoderesponse(response):
 	string = response.read().decode('utf-8')
@@ -19,7 +21,7 @@ def decoderesponse(response):
 		return lyncntlm
 	except:
 		pass
-		#print "\nFailed to decode JSON:\n"+string
+		print "\nFailed to decode JSON:\n"+string
 
 domain = raw_input("\033[0;31mProvide an example target email address [test@example.com]: \033[0m")
 domainsuffix=domain.split("@",1)[1]
@@ -28,15 +30,20 @@ print "\nLooking for Lync dicovery DNS records: "+domainsuffix+"\n"
 
 lyncdiscoverinternal = ''
 lyncdiscover = ''
+my_resolver = dns.resolver.Resolver()
+my_resolver.nameservers = ['8.8.8.8']
 
 try:
-	lyncdiscoverinternal=socket.gethostbyname("lyncdiscoverinternal."+domainsuffix)
+	lyncdiscoverinternalfull = my_resolver.query("lyncdiscoverinternal."+domainsuffix)
+	lyncdiscoverinternal = lyncdiscoverinternalfull.response
+	print lyncdiscoverinternal
 	print "\033[0;32m[+] Successfully resolved DNS (lyncdiscoverinternal): "+lyncdiscoverinternal+"\033[0m" 
 except:
 	print "\033[0;31m[-] Could not resolve DNS: "+"lyncdiscoverinternal."+domainsuffix+"\033[0m"
 
 try:
-	lyncdiscover=socket.gethostbyname("lyncdiscover."+domainsuffix)
+	lyncdiscoverfull = my_resolver.query("lyncdiscover."+domainsuffix)
+	lyncdiscover = lyncdiscoverfull.response
 	print "\033[0;32m[+] Successfully resolved DNS (lyncdiscover): "+lyncdiscover+"\033[0m\n" 
 except:
 	print "\033[0;31m[-] Could not resolve DNS: "+"lyncdiscover."+domainsuffix+"\033[0m\n"

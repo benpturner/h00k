@@ -21,7 +21,7 @@ def decoderesponse(response):
 		return lyncntlm
 	except:
 		pass
-		print "\nFailed to decode JSON:\n"+string
+		print "\nFailed to decode JSON (Might need to look at this manually):\n"+string
 
 domain = raw_input("\033[0;31mProvide an example target email address [test@example.com]: \033[0m")
 domainsuffix=domain.split("@",1)[1]

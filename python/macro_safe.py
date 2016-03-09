@@ -132,7 +132,7 @@ else:
  execStr = execStr + "exec = exec + \"e\"\n"
  execStr = execStr + "exec = exec + \"x\"\n"
  execStr = execStr + "exec = exec + \"e\"\n"
- execStr = execStr + "exec = \"" + psshell + "\"\n"
+ execStr = execStr + "exec = exec + \"" + psshell + "\"\n"
  execStr = execStr + "End If\n"
 
  shell = "Shell(exec)"

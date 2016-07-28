@@ -1,4 +1,6 @@
-﻿$csharp= @"
+﻿# Service Permission Checker
+
+$csharp= @"
 using System;
 using System.Data;
 using System.Collections.Generic;

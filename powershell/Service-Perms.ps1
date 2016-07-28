@@ -314,21 +314,14 @@ public static class ServicePerms
         }
 }
 "@
-
-$Assem = ( 
-"System",
-"System.Core",
+$Assem = "System.Data",
+"System.Xml.Linq",
+"System.Xml",
+"System.Data.Entity",
 "System.Management",
 "System.Management.Instrumentation",
-"System.ServiceProcess",
-"System.Xml.Linq",
-"System.Data.DataSetExtensions",
-"Microsoft.CSharp",
-"System.Data",
-"System.Xml"
-) 
+"System.ServiceProcess"
 
-
-Add-Type -ReferencedAssemblies $Assem -TypeDefinition $csharp -Language CSharp 
+Add-Type -TypeDefinition $csharp -Language CSharpVersion3 -IgnoreWarnings -ReferencedAssemblies $Assem
 
 $test = [ServicePerms]::dumpservices()

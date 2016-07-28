@@ -1,4 +1,7 @@
 ﻿# Service Permission Checker
+# Ben Turner @benpturner
+
+Function Get-ServicePerms {
 
 $csharp= @"
 using System;
@@ -315,6 +318,7 @@ public static class ServicePerms
             return builder.ToString();
         }
 }
+
 "@
 $Assem = "System.Data",
 "System.Xml.Linq",
@@ -326,4 +330,6 @@ $Assem = "System.Data",
 
 Add-Type -TypeDefinition $csharp -Language CSharpVersion3 -IgnoreWarnings -ReferencedAssemblies $Assem
 
-$test = [ServicePerms]::dumpservices()
+[ServicePerms]::dumpservices()
+
+}
